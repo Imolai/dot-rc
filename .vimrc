@@ -1,4 +1,4 @@
-" Gabor Imolai's vimrc, https://github.com/Imolai/dot-vimrc/.vimrc
+" Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
 
 " INITIALIZATION
 set nocompatible
