@@ -1,7 +1,6 @@
 " Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
 
 " INITIALIZATION
-set nocompatible
 syntax enable
 filetype plugin on
 let g:polyglot_disabled = ['autoindent']
@@ -54,13 +53,9 @@ set tabstop=4
 set textwidth=100
 set nowritebackup
 " NERDTree
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
-" Polyglot
-"          disable reindent
-autocmd BufEnter * set indentexpr=
 " ALE
 let g:ale_linters = {'python': ['pylint', 'pycodestyle', 'pydocstyle'], 'perl': ['perl', 'perlcritic'], 'shell': ['shell', 'shellcheck']}
 let g:ale_fixers = {'python': ['black', 'isort'], 'perl': ['perltidy'], 'shell': ['shfmt']}
