@@ -47,6 +47,8 @@ set showmode
 set smartindent
 set smarttab
 set softtabstop=4
+set splitbelow
+set splitright
 set noswapfile
 set tabstop=4
 set textwidth=100
