@@ -21,6 +21,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'vim-scripts/awk-support.vim'
+Plug 'ekalinin/dockerfile.vim'
+Plug 'stephpy/vim-yaml'
 call plug#end()
 
 
