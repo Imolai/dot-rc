@@ -1,197 +1,197 @@
 -- Gabor Imolai's Neovim:init.lua
 -- Based on Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
+-- Get: https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.config/nvim/init.lua
 
--- Define the path for lazy.nvim
-local lazyPath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Disable Perl provider
+vim.g.loaded_perl_provider = 0
 
--- Check if lazy.nvim exists, clone it if not
-if not (vim.uv or vim.loop).fs_stat(lazyPath) then
+-- Disable Ruby provider
+vim.g.loaded_ruby_provider = 0
+
+-- Ensure lazy.nvim is installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
-    lazyPath,
+    lazypath,
   })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Add lazy.nvim to the runtime path
-vim.opt.rtp:prepend(lazyPath)
-
--- Set up lazy.nvim
+-- Plugin Setup
 require("lazy").setup({
-  -- LSP
+  -- File Explorer
+  { "nvim-neo-tree/neo-tree.nvim" },
+
+  -- Fuzzy Finder
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+
+  -- Code Outline
+  { "simrat39/symbols-outline.nvim" },
+
+  -- Status Line
+  { "nvim-lualine/lualine.nvim" },
+
+  -- Git Integration
+  { "lewis6991/gitsigns.nvim" },
+
+  -- Linting & Formatting
+  { "jose-elias-alvarez/null-ls.nvim" },
+
+  -- Surround Text
+  { "kylechui/nvim-surround" },
+
+  -- Advanced Syntax Highlighting
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+    -- LSP config (language servers)
   { "neovim/nvim-lspconfig" },
-  -- LSP tools
-  -- none-ls.nvim: `null-ls.nvim` reloaded, maintained by the community.
-  -- Only the repo name is changed for compatibility concerns.
-  -- All the API and future changes will keep in place as-is.
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "nvimtools/none-ls-extras.nvim",
-      "gbprod/none-ls-shellcheck.nvim",
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  -- Which key
-  { "folke/which-key.nvim", lazy = true },
-  -- Autocomplete
-  {
-    "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    event = "InsertEnter",
-    -- these dependencies will only be loaded when cmp loads
-    -- dependencies are always lazy-loaded unless specified otherwise
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-    },
-    config = function()
-      -- ...
-    end,
-  },
-  -- Codeium
-  {
-    "Exafunction/codeium.vim",
-    tag = "1.6.39",
-    -- event = "BufEnter",
-  },
+
+  -- Autocompletion plugins
+  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
+
+  -- Snippets
+  { "L3MON4D3/LuaSnip" },
+  { "saadparwaiz1/cmp_luasnip" },
+
+  -- Debugging (DAP)
+  { "mfussenegger/nvim-dap" },
 })
 
--- Set up which-key.nvim
-require("which-key").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
-})
+-- LSP Config
+require("lspconfig").pyright.setup({})
+require("lspconfig").clangd.setup({})
+require("lspconfig").jdtls.setup({})
 
--- Set up lspconfig
-require("lspconfig").pylsp.setup({
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          enabled = true,
-          ignore = { 'E203', 'E121', 'E123', 'E126', 'E133', 'E226', 'E241', 'E242', 'E704', 'W503', 'W504', 'W505' },
-          maxLineLength = 100,
-          indent = 4,
-        },
-        pydocstyle = {
-          enabled = true
-        },
-        pylint = {
-          enabled = true
-        },
-        isort = {
-          enabled = true,
-        },
-      }
-    }
-  }
-})
+-- General Settings
+vim.opt.compatible = false
+vim.opt.paste = false
 
--- Set up none-ls.nvim
-local none_ls = require("null-ls")
-none_ls.setup({
-  sources = {
-    none_ls.builtins.completion.spell,
-    require("none-ls-shellcheck.diagnostics"),
-    require("none-ls-shellcheck.code_actions"),
-  },
-})
-
--- Set up cmp-nvim-lsp
-require("cmp_nvim_lsp").setup()
-
--- Set up nvim-cmp
-require("cmp").setup()
-
--- Set up cmp-nvim-lsp
-require("cmp_nvim_lsp").setup()
-
--- Set up vim.options
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
--- 1 important
-vim.o.pastetoggle = false
 -- 2 moving around, searching and patterns
-vim.o.incsearch = true
--- 3 tags
+vim.opt.incsearch = true
+
 -- 4 displaying text
-vim.o.list = true
-vim.o.listchars = "tab:>-,space:˙,eol:$"
-vim.o.number = true
-vim.o.numberwidth = 5
+vim.opt.list = true
+vim.opt.listchars = { tab = ">-", space = "˙", eol = "$" }
+vim.opt.number = true
+vim.opt.numberwidth = 5
+
 -- 5 syntax, highlighting and spelling
-vim.o.hlsearch = true
-vim.o.cursorline = true
-vim.o.colorcolumn = "+1"
+vim.opt.hlsearch = true
+vim.opt.cursorline = true
+vim.opt.colorcolumn = "+1"
+
 -- 6 multiple windows
-vim.o.hidden = true
-vim.o.splitbelow = true
-vim.o.splitright = true
--- 7 multiple tab pages
+vim.opt.hidden = false
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- 8 terminal
-vim.o.title = true
-vim.o.titleold = ""
+vim.opt.title = true
+vim.opt.titleold = "bash"
+
 -- 9 using the mouse
-vim.o.mouse = "a"
+vim.opt.mouse = "a"
+
 -- 10 printing
-vim.o.printoptions = "paper:A4"
+-- Invalid option (not found): 'printoptions'
+-- vim.opt.printoptions = "paper:A4"
+
 -- 11 messages and info
-vim.o.showcmd = true
-vim.o.ruler = true
--- 12 selecting text
+vim.opt.showcmd = true
+vim.opt.ruler = true
+
 -- 13 editing text
-vim.o.undolevels = 99999
-vim.o.textwidth = 100
-vim.o.backup = false
-vim.o.writebackup = false
-vim.o.showmatch = true
-vim.o.matchpairs = "(:),{:},[:],<:>"
+vim.opt.undolevels = 99999
+vim.opt.textwidth = 100
+vim.opt.backspace = { "indent", "eol", "start" }
+vim.opt.showmatch = true
+vim.opt.matchpairs = "(:),{:},[:],<:>"
+
 -- 14 tabs and indenting
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.smarttab = true
-vim.o.softtabstop = 4
-vim.o.shiftround = true
-vim.o.expandtab = true
-vim.o.autoindent = true
-vim.o.smartindent = true
-vim.o.copyindent = true
-vim.o.preserveindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smarttab = true
+vim.opt.softtabstop = 4
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.copyindent = true
+vim.opt.preserveindent = true
+
 -- 15 folding
-vim.o.foldlevel = 99
-vim.o.foldmethod = "indent"
--- 16 diff mode
--- 17 mapping
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "indent"
+
 -- 18 reading and writing files
-vim.o.backup = false
-vim.o.writebackup = false
-vim.o.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+
 -- 19 the swap file
--- 20 command line editing
--- 21 executing external commands
--- 22 running make and jumping to errors (quickfix)
--- 23 language specific
+vim.opt.swapfile = false
+
 -- 24 multi-byte characters
-vim.o.encoding = "utf-8"
--- 25 various
+vim.opt.encoding = "utf-8"
+
 -- 26 misc
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 8
-vim.o.clipboard = "unnamed"
+vim.scriptencoding = "utf-8"
+vim.opt.clipboard = "unnamed"
 
--- Set keymaps
-vim.keymap.set('i', '<M-g>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-vim.keymap.set('i', '<M-.>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
-vim.keymap.set('i', '<M-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
-vim.keymap.set('i', '<M-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+-- Key mappings for plugins
+vim.api.nvim_set_keymap("n", "<F7>", ":NeoTreeFocusToggle<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<F8>", ":SymbolsOutline<CR>", { noremap = true, silent = true })
 
--- Codeium
-vim.g.codeium_server_config = {
-  portal_url = "https://codingbuddy.onprem.gic.ericsson.se",
-  api_url = "https://codingbuddy.onprem.gic.ericsson.se/_route/api_server"
-}
+-- LSP-based linting and formatting with null-ls
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.pylint.with({
+      extra_args = { "--rcfile", vim.fn.expand("$HOME/.pylintrc") },
+    }),
+    null_ls.builtins.diagnostics.pycodestyle.with({
+      extra_args = { "--config", vim.fn.expand("$HOME/setup.cfg") },
+    }),
+    null_ls.builtins.formatting.black.with({
+      extra_args = { "-t", "py39", "-l", "100" },
+    }),
+    null_ls.builtins.formatting.isort,
+    null_ls.builtins.diagnostics.shellcheck.with({
+      extra_args = { "-x", "-e", "SC1117" },
+    }),
+    null_ls.builtins.formatting.shfmt.with({
+      extra_args = { "-i", "100", "-ci" },
+    }),
+  },
+})
+
+-- Lualine configuration
+require("lualine").setup({
+  options = {
+    theme = "auto",
+  },
+})
+
+-- Git signs configuration
+require("gitsigns").setup()
+
+-- nvim-surround configuration
+require("nvim-surround").setup()
+
+-- Treesitter configuration
+require("nvim-treesitter.configs").setup({
+  -- ensure_installed = "all", -- Install all supported languages
+  ensure_installed = { "awk", "bash", "c", "cmake", "cpp", "diff", "dockerfile", "doxygen", "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore", "groovy", "java", "json", "lua", "luadoc", "make", "markdown", "markdown_inline", "python", "rst", "toml", "xml", "yaml" },
+  highlight = {
+    enable = true,
+  },
+  indent = { enable = true }, -- Automatic indentation
+})
