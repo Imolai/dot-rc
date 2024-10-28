@@ -1,2 +1,3 @@
 # dot-vimrc
-My simple Vim & Neovim configurations.
+
+My simple [Vim](./.vimrc) & [Neovim](./.config/nvim/init.lua) configurations.
