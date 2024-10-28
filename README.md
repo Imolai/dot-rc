@@ -1,2 +1,2 @@
 # dot-vimrc
-My simple Vim configuration.
+My simple Vim & Neovim configurations.
