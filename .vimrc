@@ -1,19 +1,28 @@
-" Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
+" begin Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
 
-
-"  0 initialization
+" 0 Initialization
 syntax enable
-filetype plugin on
-let g:polyglot_disabled = ['autoindent']
-"  0 plugins
+filetype plugin indent on
+
+" 1 Plugins
 "
-" installation:
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" Plug installation:
+let g:plug_installed = 1
+if empty(glob('~/.vim/autoload/plug.vim'))
+  let g:plug_installed = 0
+  echo "vim-plug is not installed. Installing..."
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if filereadable('~/.vim/autoload/plug.vim')
+    execute 'source ~/.vim/autoload/plug.vim'
+  else
+    echo "Error: vim-plug installation failed."
+    quit
+  endif
+endif
+"
 call plug#begin()
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'preservim/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
@@ -24,135 +33,65 @@ Plug 'jmcantrell/vim-virtualenv'
 Plug 'vim-scripts/awk-support.vim'
 Plug 'ekalinin/dockerfile.vim'
 Plug 'stephpy/vim-yaml'
+Plug 'puremourning/vimspector'
+Plug 'morhetz/gruvbox'
 call plug#end()
+" Automatic PlugInstall, after recent installation of vim-plug
+if g:plug_installed == 0
+  echo "Running :PlugInstall to install plugins..."
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 
-
-"  1 important
-"set nocompatible  " default setting from Vim 8.0
-set nopaste
-
-
-"  2 moving around, searching and patterns
-set incsearch
-
-
-"  3 tags
-
-
-"  4 displaying text
-set list
-set listchars=tab:>-,space:˙,eol:$
+" 2 Essential settings
 set number
-"set relativenumber
-set numberwidth=5
-
-
-"  5 syntax, highlighting and spelling
-"set background=dark
-set hlsearch
-"set cursorcolumn
+set relativenumber
 set cursorline
 set colorcolumn=+1
-
-
-"  6 multiple windows
-set nohidden
-set splitbelow
-set splitright
-
-
-"  7 multiple tab pages
-
-
-"  8 terminal
-set title
-set titleold=bash
-
-
-"  9 using the mouse
-set mouse=a
-
-
-" 10 printing
-set printoptions=paper:A4
-
-
-" 11 messages and info
-set showcmd
-"set showmode  " instead, vim-airline
-set ruler
-
-
-" 12 selecting text
-
-
-" 13 editing text
-set undolevels=99999
-set textwidth=100
-set backspace=2
-set showmatch
-set matchpairs=(:),{:},[:],<:>
-
-
-" 14 tabs and indenting
+if has('termguicolors')
+  set termguicolors
+endif
+set clipboard=unnamed
+set encoding=utf-8
+scriptencoding utf-8
 set tabstop=4
 set shiftwidth=4
-set smarttab
 set softtabstop=4
-set shiftround
 set expandtab
 set autoindent
 set smartindent
 set copyindent
 set preserveindent
-
-
-" 15 folding
+set backspace=2
+set splitbelow
+set splitright
+set incsearch
+set hlsearch
+set list
+"set listchars=tab:>-,space:˙,eol:$
+set numberwidth=5
+set nohidden
+set title
+set titleold=bash
+set mouse=a
+set printoptions=paper:A4
+set showcmd
+set ruler
+set undolevels=99999
+set textwidth=79
+set showmatch
+set matchpairs=(:),{:},[:],<:>
+set smarttab
+set shiftround
 set foldlevel=99
 set foldmethod=indent
-
-
-" 16 diff mode
-
-
-" 17 mapping
-
-
-" 18 reading and writing files
 set nobackup
 set nowritebackup
-
-
-" 19 the swap file
 set noswapfile
 
-
-" 20 command line editing
-
-
-" 21 executing external commands
-
-
-" 22 running make and jumping to errors (quickfix)
-
-
-" 23 language specific
-
-
-" 24 multi-byte characters
-set encoding=utf-8
-
-
-" 25 various
-
-
-" 26 misc
-scriptencoding utf-8
-set clipboard=unnamed
-" NERDTree
-nmap <F7> :NERDTreeToggle<CR>
-" Tagbar
-nmap <F8> :TagbarToggle<CR>
+" 3 Plugin settings
+" Airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'gruvbox'
 " ALE
 let g:ale_linters = {'python': ['pylint', 'pycodestyle', 'pydocstyle'], 'perl': ['perl', 'perlcritic'], 'shell': ['shell', 'shellcheck']}
 let g:ale_fixers = {'python': ['black', 'isort'], 'perl': ['perltidy'], 'shell': ['shfmt']}
@@ -173,6 +112,35 @@ let g:ale_lint_on_text_changed = 1
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fix_on_save = 0
 let g:ale_fix_on_insert_leave = 0
+" Color scheme
+colorscheme gruvbox
+set background=dark
 
+" 4 Keyboard shortcuts
+" Leader key is space
+let mapleader = " "
+" ALE keys
+nnoremap <leader>al :ALELint<CR>
+nnoremap <leader>an :ALENext<CR>
+nnoremap <leader>ap :ALEPrevious<CR>
+nnoremap <leader>af :ALEFix<CR>
+nnoremap <leader>aw :ALEDetail<CR>
+" NERDTree and Tagbar
+nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>tb :TagbarToggle<CR>
+" Terminal
+nnoremap <leader>tt :below terminal<CR>
+" Debugger (Vimspector)
+nnoremap <leader>db :VimspectorLaunch<CR>
+nnoremap <leader>ds :VimspectorStepInto<CR>
+nnoremap <leader>do :VimspectorStepOut<CR>
+nnoremap <leader>dn :VimspectorStepOver<CR>
+nnoremap <leader>de :VimspectorReset<CR>
+nnoremap <leader>dt :VimspectorToggleBreakpoint<CR>
+" Syntax highlights
+nnoremap <leader>ss :syntax enable<CR>
+nnoremap <leader>sn :syntax off<CR>
+" Remove search highlight
+nnoremap <leader>cc :nohlsearch<CR>
 
 " end
