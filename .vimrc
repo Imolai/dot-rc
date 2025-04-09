@@ -1,4 +1,4 @@
-" begin Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
+" begin Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-rc/main/.vimrc
 
 " 0 Initialization
 syntax enable
