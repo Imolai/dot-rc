@@ -22,7 +22,7 @@ echo -e '\nexport PATH="$PATH:$HOME/neovim/bin"\n' >> $HOME/.bashrc
 
 [nvim init.lua](./.config/nvim/init.lua)
 
-## (Optional) Install LazyVim
+## (Optional) Install [LazyVim](https://www.lazyvim.org)
 
 ```bash
 # make a backup of your current Neovim files
