@@ -18,6 +18,10 @@ echo -e '\nexport PATH="$PATH:$HOME/neovim/bin"\n' >> $HOME/.bashrc
 . $HOME/.bashrc
 ```
 
+## (Optional) Use my init config
+
+[nvim init.lua](./.config/nvim/init.lua).
+
 ## (Optional) Install LazyVim
 
 ```bash
