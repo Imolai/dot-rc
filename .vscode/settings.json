@@ -1,0 +1,55 @@
+{
+    "dev.containers.dockerComposePath": "podman-compose",
+    "dev.containers.dockerPath": "podman",
+    "editor.autoClosingBrackets": "always",
+    "editor.autoClosingQuotes": "always",
+    "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.fontSize": 16,
+    "editor.matchBrackets": "always",
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "all",
+    "editor.rulers": [72, 79, 100],
+    "editor.tabSize": 4,
+    "editor.trimAutoWhitespace": true,
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 100,
+    "editor.minimap.enabled": false,
+    "git.blame.editorDecoration.enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "github.copilot.chat.terminalChatLocation": "chatView",
+    "remote.autoForwardPortsSource": "hybrid",
+    "remote.SSH.remotePlatform": {
+        "localhost": "linux"
+    },
+    "telemetry.telemetryLevel": "error",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.shellIntegration.history": 9999999,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "/bin/bash",
+            "args": ["--login"]
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "window.openFilesInNewWindow": "on",
+    "workbench.colorTheme": "GitHub Blue",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.showTabs": "multiple",
+    "workbench.editor.wrapTabs": true,
+    "workbench.startupEditor": "none",
+    "[python]": {
+        "editor.trimAutoWhitespace": true,
+        "files.trimTrailingWhitespace": true,
+    },
+    "[markdown]": {
+        "editor.trimAutoWhitespace": false,
+        "files.trimTrailingWhitespace": false,
+    },
+}
