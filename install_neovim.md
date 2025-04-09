@@ -2,9 +2,9 @@
 
 ## Get the binary Neovim
 
-- https://github.com/neovim/neovim/releases
+- https://github.com/neovim/neovim/releases  
   https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
-- (unsupported) builds for older glibc: https://github.com/neovim/neovim-releases/releases
+- (unsupported) builds for older glibc: https://github.com/neovim/neovim-releases/releases  
   https://github.com/neovim/neovim-releases/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
 
 ```bash
