@@ -1,3 +1,7 @@
-# dot-vimrc
+# dot-rc
 
-My simple [Vim](./.vimrc) & [Neovim](./.config/nvim/init.lua) configurations.
+My simple, but usable configurations.
+
+- [Vim](./.vimrc)
+- [Neovim](./.config/nvim/init.lua)
+- [VSCode](./,vscode/settings.json)
