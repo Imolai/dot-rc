@@ -1,6 +1,6 @@
 -- Gabor Imolai's Neovim:init.lua
--- Based on Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.vimrc
--- Get: https://raw.githubusercontent.com/Imolai/dot-vimrc/main/.config/nvim/init.lua
+-- Based on Gabor Imolai's vimrc, https://raw.githubusercontent.com/Imolai/dot-rc/main/.vimrc
+-- Get: https://raw.githubusercontent.com/Imolai/dot-rc/main/.config/nvim/init.lua
 
 -- Disable Perl provider
 vim.g.loaded_perl_provider = 0
