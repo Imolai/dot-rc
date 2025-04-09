@@ -3,5 +3,5 @@
 My simple, but usable configurations.
 
 - [Vim](./.vimrc)
-- [Neovim](./.config/nvim/init.lua)
+- [Neovim](./install_neovim.md)
 - [VSCode](./.vscode/settings.json)
