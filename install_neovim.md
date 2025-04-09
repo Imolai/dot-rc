@@ -1,6 +1,6 @@
 # Install Neovim
 
-## Get the binary neovim
+## Get the binary Neovim
 
 - https://github.com/neovim/neovim/releases
   https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
