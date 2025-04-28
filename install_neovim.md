@@ -255,6 +255,17 @@ tar zxvf lazygit_0.49.0_Linux_x86_64.tar.gz
 sudo cp lazygit /usr/local/bin/
 ```
 
+If you have only user permissions, you can install these CLI tools into your own `~/bin` directory:
+
+```bash
+mkdir -p ~/bin
+cp fd rg fzf lazygit ~/bin
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+. ~/.bashrc
+```
+
+This way, no `sudo` is needed for anything.
+
 ---
 
 ## 10. C++ developer plugins
