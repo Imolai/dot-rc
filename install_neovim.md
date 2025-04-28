@@ -12,7 +12,7 @@ Official release:
 
 ```bash
 cd
-curl -LO https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.tar.gz
+curl -LO https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
 tar xvzf nvim-linux-x86_64.tar.gz
 mv nvim-linux-x86_64 neovim
 
