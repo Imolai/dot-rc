@@ -268,7 +268,7 @@ This way, no `sudo` is needed for anything.
 
 ---
 
-## 10. C++ developer plugins
+## 10. Extending into a Full IDE (Example: C++ Development)
 
 ### 10.1 Add Plugins
 
@@ -359,6 +359,84 @@ null_ls.setup({
   },
 })
 ```
+
+---
+
+## 10.3 Quick IDE Setup for Other Languages
+
+You can extend Neovim into a full-featured IDE for other popular backend languages as well.
+
+### Python
+
+```lua
+-- LSP (pyright) + Formatter (black) + Linter (flake8)
+require("lspconfig").pyright.setup({})
+require("null-ls").setup({
+  sources = {
+    require("null-ls").builtins.formatting.black,
+    require("null-ls").builtins.diagnostics.flake8,
+  },
+})
+```
+
+### TypeScript (Backend)
+
+```lua
+-- LSP (tsserver) + Formatter (prettier) + Linter (eslint)
+require("lspconfig").tsserver.setup({})
+require("null-ls").setup({
+  sources = {
+    require("null-ls").builtins.formatting.prettier,
+    require("null-ls").builtins.diagnostics.eslint,
+  },
+})
+```
+
+### Java
+
+```lua
+-- LSP (jdtls) via Mason
+require("lspconfig").jdtls.setup({})
+-- Optional: Formatter (google-java-format) can be configured separately if needed.
+```
+
+This way, Neovim can easily become a full-featured IDE for Python, TypeScript (backend), and Java, in addition to C++.
+
+---
+
+## 10.4 (Optional) Add AI Autocompletion with **Windsurf** (formerly Codeium)
+
+You can further enhance your Neovim IDE with free, lightweight AI autocompletion using **[Windsurf](https://windsurf.com/)**.
+
+Install Codeium plugin:
+
+```lua
+{
+  "Exafunction/windsurf.nvim",
+  event = "InsertEnter",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "hrsh7th/nvim-cmp",
+  },
+  config = function()
+    require("codeium").setup({})
+  end,
+}
+```
+
+Features:
+- Works out-of-the-box, without requiring an account initially.
+- Provides intelligent AI-based autocompletion for **any programming language**.
+- Complements your LSP, Linter, and Formatter for an even smoother developer experience.
+
+Useful commands:
+
+```vim
+:CodeiumEnable
+:CodeiumDisable
+```
+
+Official repository: [https://github.com/Exafunction/windsurf.nvim](https://github.com/Exafunction/windsurf.nvim).
 
 ---
 
