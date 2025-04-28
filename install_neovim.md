@@ -1,4 +1,6 @@
-# Install Neovim + LazyVim Installation Guide (especially for UBI7 or similar old environments)
+# Install Neovim + LazyVim Installation Guide
+
+*(especially for UBI7 or similar old environments)*
 
 ## 1. Install Neovim
 
